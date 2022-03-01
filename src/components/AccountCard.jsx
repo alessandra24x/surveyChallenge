@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import quizContract from '../abis/quiz.json';
 import { CONTRACT_ADDRESS, formatAccount, formatBalance } from '../utils';
 
-const BasicCard = () => {
+const AccountCard = () => {
   const { account, library } = useWeb3React();
   const [balance, setBalance] = useState(null);
   const [name, setName] = useState(null);
@@ -22,18 +22,15 @@ const BasicCard = () => {
 
     const fn = async () => {
       try {
-        await loadContract().then((contract) => {
-          contract.methods
-            .balanceOf(account)
-            .call()
-            .then((b) => setBalance(formatBalance(b)));
-        });
-        await loadContract().then((contract) => {
-          contract.methods
-            .name()
-            .call()
-            .then((n) => setName(n));
-        });
+        const contract = await loadContract();
+
+        const [balance, name] = await Promise.all([
+          contract.methods.balanceOf(account).call(),
+          contract.methods.name().call(),
+        ]);
+
+        setBalance(balance);
+        setName(name);
       } catch (error) {
         return null;
       }
@@ -44,9 +41,7 @@ const BasicCard = () => {
   return (
     <Card>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {formatAccount(account)}
-        </Typography>
+        <Typography variant="caption">{formatAccount(account)}</Typography>
         <Typography>
           Balance: {balance} {name}
         </Typography>
@@ -55,4 +50,4 @@ const BasicCard = () => {
   );
 };
 
-export default BasicCard;
+export default AccountCard;
