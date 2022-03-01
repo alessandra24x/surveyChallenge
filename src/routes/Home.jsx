@@ -1,4 +1,4 @@
-import { Box, Button, Container, CssBaseline, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { useEffect, useState } from 'react';

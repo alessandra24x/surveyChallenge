@@ -3,9 +3,9 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Web3 from 'web3';
 
-import MainBox from './components/styled/MainBox';
+import MainBox from './components/MainBox';
 import Home from './routes/Home';
-import Survey from './routes/Survey';
+import SurveyContainer from './routes/SurveyContainer';
 import theme from './theme';
 
 function getLibrary(provider) {
@@ -22,7 +22,7 @@ const App = () => {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="survey" element={<Survey />} />
+                <Route path="survey" element={<SurveyContainer />} />
               </Routes>
             </BrowserRouter>
           </MainBox>

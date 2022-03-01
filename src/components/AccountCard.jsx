@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core';
 import { useEffect, useState } from 'react';
 
 import quizContract from '../abis/quiz.json';
-import { CONTRACT_ADDRESS, formatAccount, formatBalance } from '../utils';
+import { CONTRACT_ADDRESS, formatAccount } from '../utils';
 
 const AccountCard = () => {
   const { account, library } = useWeb3React();
