@@ -1,15 +1,16 @@
 import {
-  Button,
-  Container,
   Box,
+  Button,
+  Card,
+  Container,
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
-  Card,
 } from '@mui/material';
 import { useState } from 'react';
+
 import surveyMock from '../survey.json';
 
 const Survey = () => {

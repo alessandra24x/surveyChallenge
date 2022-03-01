@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { Box, Button, Container, CssBaseline, Typography } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
-import { CssBaseline, Container, Box, Button, Typography } from '@mui/material';
-import MetaMask from '../assets/MetaMask.svg';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { configureNetwork } from '../utils';
-import surveyMock from '../survey.json';
-import BasicCard from '../components/Card';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import MetaMask from '../assets/MetaMask.svg';
+import BasicCard from '../components/Card';
+import surveyMock from '../survey.json';
+import { configureNetwork } from '../utils';
 
 const MyStyledBox = (props) => {
   return <Box sx={{ height: '100vh' }}>{props.children}</Box>;
