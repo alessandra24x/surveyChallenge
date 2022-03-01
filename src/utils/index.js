@@ -49,12 +49,13 @@ export const configureNetwork = async (web3) => {
             ],
           });
         } catch (addError) {
-          console.error(addError);
+          throw addError;
         }
       } else if (error.code === -32002) {
         window.alert('Tiene una transacción pendiente');
       }
-      console.error(error);
+
+      throw error;
     }
   }
 };

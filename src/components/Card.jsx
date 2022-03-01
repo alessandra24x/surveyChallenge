@@ -10,33 +10,36 @@ const BasicCard = () => {
   const [balance, setBalance] = useState(null);
   const [name, setName] = useState(null);
 
-  useEffect(async () => {
-    try {
-      await loadContract().then((contract) => {
-        contract.methods
-          .balanceOf(account)
-          .call()
-          .then((b) => setBalance(formatBalance(b)));
-      });
-      await loadContract().then((contract) => {
-        contract.methods
-          .name()
-          .call()
-          .then((n) => setName(n));
-      });
-    } catch (error) {
-      return null;
-    }
-  }, []);
+  useEffect(() => {
+    const loadContract = async () => {
+      try {
+        const contract = await new library.eth.Contract(quizContract, CONTRACT_ADDRESS);
+        return contract;
+      } catch (error) {
+        return null;
+      }
+    };
 
-  const loadContract = async () => {
-    try {
-      const contract = await new library.eth.Contract(quizContract, CONTRACT_ADDRESS);
-      return contract;
-    } catch (error) {
-      return null;
-    }
-  };
+    const fn = async () => {
+      try {
+        await loadContract().then((contract) => {
+          contract.methods
+            .balanceOf(account)
+            .call()
+            .then((b) => setBalance(formatBalance(b)));
+        });
+        await loadContract().then((contract) => {
+          contract.methods
+            .name()
+            .call()
+            .then((n) => setName(n));
+        });
+      } catch (error) {
+        return null;
+      }
+    };
+    fn();
+  }, [account, library.eth.Contract]);
 
   return (
     <Card>

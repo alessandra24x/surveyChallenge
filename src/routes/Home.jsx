@@ -1,7 +1,7 @@
 import { Box, Button, Container, CssBaseline, Typography } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import MetaMask from '../assets/MetaMask.svg';
@@ -15,32 +15,33 @@ const MyStyledBox = (props) => {
 
 const isWalletConnected = () => localStorage.getItem('isWalletConnected') === 'true';
 
-function App() {
-  const { active, account, library, connector, activate, deactivate, chainId } = useWeb3React();
+const injected = new InjectedConnector({
+  supportedChainIds: [1, 3, 4, 5, 42],
+});
 
-  const injected = new InjectedConnector({
-    supportedChainIds: [1, 3, 4, 5, 42],
-  });
+function App() {
+  const { account, library, activate, chainId } = useWeb3React();
+  const [error, setError] = useState(null);
 
   const isRopstenNetwork = account && chainId === 3;
   const isAnotherNetwork = account && !isRopstenNetwork;
 
   const isDisconnected = !account;
 
+  async function switchNetwork() {
+    try {
+      await configureNetwork(library);
+    } catch (ex) {
+      setError("Can't switch network");
+    }
+  }
+
   async function connect() {
     try {
       await activate(injected);
       localStorage.setItem('isWalletConnected', true);
     } catch (ex) {
-      console.log(ex);
-    }
-  }
-
-  async function switchNetwork() {
-    try {
-      await configureNetwork(library);
-    } catch (ex) {
-      console.log(ex);
+      setError("Can't connect to wallet, verify that you have selected the Ropsten network on MetaMask");
     }
   }
 
@@ -51,17 +52,18 @@ function App() {
           await activate(injected);
           localStorage.setItem('isWalletConnected', true);
         } catch (ex) {
-          console.log(ex);
+          setError("Can't connect to wallet, verify that you have selected the Ropsten network on MetaMask");
         }
       }
     };
     connectWalletOnPageLoad();
-  }, []);
+  }, [activate]);
 
   return (
     <div className="Home">
       <CssBaseline />
       <Container fixed>
+        {error && <div>{error}</div>}
         <MyStyledBox>
           {isRopstenNetwork ? (
             <Typography variant="h2" gutterBottom>
