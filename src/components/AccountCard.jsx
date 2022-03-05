@@ -2,7 +2,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
 import { useContext, useEffect, useState } from 'react';
 
-import { contractContext } from '../hooks/contract';
+import { useContract } from '../hooks/contract';
 import { formatAccount, formatBalance } from '../utils';
 
 const AccountCard = () => {
@@ -10,7 +10,7 @@ const AccountCard = () => {
   const [balance, setBalance] = useState(null);
   const [name, setName] = useState(null);
 
-  const {contract} = useContext(contractContext)
+  const { contract } = useContract();
 
   useEffect(() => {
     const fn = async () => {
