@@ -12,20 +12,8 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-/**
- * @param {{
- *   image: string,
- *   onSubmit: () => void,
- *   question: string,
- *   options: string[],
- *   remainingTime: number,
- * }} props
- *
- * @returns {import('react').ReactElement}
- */
 const QuestionCard = ({ image, onSubmit, question, options, remainingTime }) => {
   const [value, setValue] = useState('');
-
   const resetValue = () => setValue('');
 
   const handleSubmit = (event) => {
@@ -47,7 +35,7 @@ const QuestionCard = ({ image, onSubmit, question, options, remainingTime }) => 
           <FormControl variant="standard">
             <RadioGroup defaultValue="" value={value} onChange={(event) => setValue(event.target.value)} name="quiz">
               {options.map((option) => (
-                <FormControlLabel key={option} value={option} control={<Radio />} label={option} />
+                <FormControlLabel key={option.answerId} value={`${option.answerId}, ${option.text}`} control={<Radio />} label={option.text} />
               ))}
             </RadioGroup>
           </FormControl>

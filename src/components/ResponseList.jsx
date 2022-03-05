@@ -1,10 +1,5 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
-/**
- * @param {{ responses: { question: string, value: string } }} props
- *
- * @returns {import('react').ReactElement}
- */
 const ResponseList = ({ responses }) => {
   return (
     <TableContainer component={Paper}>
@@ -21,7 +16,7 @@ const ResponseList = ({ responses }) => {
               <TableCell component="th" scope="row">
                 {response.question}
               </TableCell>
-              <TableCell align="right">{response.value}</TableCell>
+              <TableCell align="right">{response.answerText}</TableCell>
             </TableRow>
           ))}
         </TableBody>

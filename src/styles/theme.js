@@ -13,7 +13,7 @@ const blues = {
   50: '#e4e8ec',
 };
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
@@ -23,5 +23,3 @@ const theme = createTheme({
     primary: blues,
   },
 });
-
-export default theme;

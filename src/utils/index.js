@@ -2,8 +2,6 @@ import Web3 from 'web3/';
 
 const web3 = new Web3();
 
-export const CONTRACT_ADDRESS = '0x74F0B668Ea3053052DEAa5Eedd1815f579f0Ee03';
-
 export const formatAccount = (account) => {
   const A = account.slice(0, 4);
   const B = account.slice(account.length - 4);
@@ -52,7 +50,7 @@ export const configureNetwork = async (web3) => {
           throw addError;
         }
       } else if (error.code === -32002) {
-        window.alert('Tiene una transacción pendiente');
+        window.alert('You have a pending transaction');
       }
 
       throw error;

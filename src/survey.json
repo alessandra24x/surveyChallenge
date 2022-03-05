@@ -1,52 +1,65 @@
 {
+  "surveyId": 1,
   "title": "Sample Survey",
   "image": "https://48tools.com/wp-content/uploads/2015/09/shortlink.png",
   "questions": [
     {
-      "text": "Question1",
+      "questionId": 1,
+      "text": "Do you think authorities should be responsible for monetary policies regulation?",
       "image": "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
       "lifetimeSeconds": 10,
       "options": [
         {
-          "text": "Opt1"
+          "answerId": 1,
+          "text": "Yes"
         },
         {
-          "text": "Opt2"
+          "answerId": 2,
+          "text": "No"
         },
         {
-          "text": "Opt"
+          "answerId": 3,
+          "text": "No opinion"
         }
       ]
     },
     {
-      "text": "Question2",
+      "questionId": 2,
+      "text": "In the case of Crypto, do you trust its technology in the long term?",
       "image": "https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
-      "lifetimeSeconds": 5,
+      "lifetimeSeconds": 15,
       "options": [
         {
-          "text": "Opt1"
+          "answerId": 1,
+          "text": "Yes"
         },
         {
-          "text": "Opt2"
+          "answerId": 2,
+          "text": "No"
         },
         {
-          "text": "Opt"
+          "answerId": 3,
+          "text": "No opinion"
         }
       ]
     },
     {
-      "text": "Pregunta 2",
+      "questionId": 3,
+      "text": "Do you think different crypto-currencies can co-exist in our daily life",
       "image": "https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg",
-      "lifetimeSeconds": 5,
+      "lifetimeSeconds": 15,
       "options": [
         {
-          "text": "Opt1"
+          "answerId": 1,
+          "text": "Yes"
         },
         {
-          "text": "Opt2"
+          "answerId": 2,
+          "text": "No"
         },
         {
-          "text": "Opt"
+          "answerId": 3,
+          "text": "No opinion"
         }
       ]
     }

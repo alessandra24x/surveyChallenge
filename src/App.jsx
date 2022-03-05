@@ -1,34 +1,33 @@
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import { Web3ReactProvider } from '@web3-react/core';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Web3 from 'web3';
+import MainBox from './styles/MainBox';
 
-import MainBox from './components/MainBox';
-import Home from './routes/Home';
+import ContractProvider from './hooks/contract';
+import Home from './routes/HomeContainer';
 import SurveyContainer from './routes/SurveyContainer';
-import theme from './theme';
-
-function getLibrary(provider) {
-  return new Web3(provider);
-}
+import {theme} from './styles/theme';
+import { getLibrary } from './utils/connectors';
 
 const App = () => {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Container fixed>
-          <MainBox>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="survey" element={<SurveyContainer />} />
-              </Routes>
-            </BrowserRouter>
-          </MainBox>
-        </Container>
-      </ThemeProvider>
-    </Web3ReactProvider>
+        <ContractProvider>
+          <ThemeProvider theme={theme}>
+          <CssBaseline />
+            <Container>
+              <MainBox>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="survey" element={<SurveyContainer />} />
+                  </Routes>
+                </BrowserRouter>
+                </MainBox>
+            </Container>
+          </ThemeProvider>
+        </ContractProvider>
+      </Web3ReactProvider>
   );
 };
 

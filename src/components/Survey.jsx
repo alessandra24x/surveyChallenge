@@ -3,21 +3,9 @@ import { useEffect, useState } from 'react';
 import { useInterval } from '../hooks/useInterval';
 import Card from './QuestionCard';
 
-/**
- * @param {{
- *   addResponse: (response: string) => void,
- *   surveyQuestion: {
- *     text: string,
- *     image: string,
- *     lifetimeSeconds: number,
- *     options: { text: string }[]
- *   }
- * }} props
- *
- * @returns {import('react').ReactElement}
- */
 const Survey = ({ addResponse, surveyQuestion }) => {
   const [remainingTime, setRemainingTime] = useState(null);
+  const NO_ANSWERED = 'No answered';
 
   useEffect(() => {
     setRemainingTime(surveyQuestion.lifetimeSeconds);
@@ -27,14 +15,16 @@ const Survey = ({ addResponse, surveyQuestion }) => {
     setRemainingTime((remainingTime) => remainingTime - 1);
 
     if (remainingTime === 1) {
-      addResponse('');
+      addResponse(NO_ANSWERED, 0);
     }
   }, 1000);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const value = event.target.elements.quiz.value;
-    addResponse(value);
+    const value = event.target.elements.quiz.value.split(',');
+    const answerText = value[1]
+    const answerId = parseInt(value[0])
+    addResponse(answerText, answerId);
   };
 
   return (
@@ -42,7 +32,7 @@ const Survey = ({ addResponse, surveyQuestion }) => {
       image={surveyQuestion.image}
       onSubmit={handleSubmit}
       question={surveyQuestion.text}
-      options={surveyQuestion.options.map((option) => option.text)}
+      options={surveyQuestion.options.map((option) => option)}
       remainingTime={remainingTime}
     />
   );

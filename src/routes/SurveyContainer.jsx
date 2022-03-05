@@ -1,57 +1,77 @@
-import { Button, styled } from '@mui/material';
-import { useState } from 'react';
+import { Button } from '@mui/material';
+import { useWeb3React } from '@web3-react/core';
+import { useState, useContext } from 'react';
 
 import ResponseList from '../components/ResponseList';
 import Survey from '../components/Survey';
 import surveyMock from '../survey.json';
-
-const Layout = styled('div')(() => ({
-  height: '100%',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-}));
+import contractContext from '../hooks/contract';
 
 const SurveyContainer = () => {
   const [step, setStep] = useState(0);
   const [responses, setResponses] = useState([]);
+  const { account } = useWeb3React();
+
+  const {contract} = useContext(contractContext)
 
   const surveyQuestion = surveyMock.questions[step];
   const showResponses = step === surveyMock.questions.length;
+  const {surveyId} = surveyMock;
 
-  const addResponse = (value) => {
+  const addResponse = (answerText, answerId) => {
     setResponses((responses) => [
       ...responses,
       {
         question: surveyQuestion.text,
-        value,
+        answerText,
+        answerId
       },
     ]);
 
     setStep((step) => step + 1);
   };
 
+  const submitQuiz = async() => {
+  const answersIdArray = responses.map(el => el.answerId);
+  
+  console.log('AQUI ES', surveyId, answersIdArray);
+  await contract.methods.submit(surveyId, answersIdArray)
+    .send({ from: account })
+    .on('transactionHash', (hash) => {
+      return hash;
+    })
+    .on('error', (error) => {
+      return error;
+    });
+};
+
   if (showResponses) {
     return (
-      <Layout>
+      <>
         <ResponseList responses={responses} />
         <Button
           onClick={() => {
-            console.log('enviar respuestitas');
+            submitQuiz().then(result => {
+              console.log('result', result);
+            })
+            .catch(e => {
+              if (e.code === 4001) {
+                window.alert('denied transaction');
+              }
+              console.log('error', e);
+            });;
           }}
         >
           Enviar respuestas
         </Button>
-      </Layout>
+      </>
     );
   }
 
   return (
-    <Layout>
+    <>
       <Survey addResponse={addResponse} surveyQuestion={surveyQuestion} />
-    </Layout>
+    </>
   );
 };
 
