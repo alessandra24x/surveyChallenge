@@ -90,7 +90,7 @@ function HomeContainer() {
           <Home textTitle={WELCOME} 
                 textInfo={SWITCH_NETWORK}
                 textButton={SWITCH}
-                hanldeClick={switchNetwork}
+                handleClick={switchNetwork}
           />
         </>
       )}

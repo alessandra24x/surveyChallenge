@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useContract } from '../hooks/contract';
 import { formatAccount, formatBalance } from '../utils';
@@ -27,7 +27,7 @@ const AccountCard = () => {
       }
     };
     fn();
-  }, [account, contract]);
+  }, [account, contract, setBalance]);
 
   return (
     <Card>
