@@ -23,11 +23,8 @@ const ContractProvider = ({ children }) => {
   }, [library]);
 
   useEffect(() => {
-    console.log('holi');
     loadContract();
   }, [loadContract]);
-
-  // console.log(contract)
 
   return <ContractContext.Provider value={contract}>{children}</ContractContext.Provider>;
 };

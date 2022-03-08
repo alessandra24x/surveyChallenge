@@ -48,7 +48,7 @@ function HomeContainer() {
     try {
       await configureNetwork(library);
     } catch (ex) {
-      setError("Can't switch network");
+      setError("Can't switch network. Please try again");
     }
   }
 

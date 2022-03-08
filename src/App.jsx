@@ -3,7 +3,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainBox from './styles/MainBox';
 
-import ContractProvider from './hooks/contract';
+import ContractProvider from './context/contract';
 import Home from './routes/HomeContainer';
 import SurveyContainer from './routes/SurveyContainer';
 import {theme} from './styles/theme';

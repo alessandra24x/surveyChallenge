@@ -1,11 +1,11 @@
 import { Button } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, CircularProgress } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ResponseList from '../components/ResponseList';
 import Survey from '../components/Survey';
-import { useContract } from '../hooks/contract';
+import { useContract } from '../context/contract';
 import surveyMock from '../survey.json';
 
 const SurveyContainer = () => {
@@ -35,24 +35,23 @@ const SurveyContainer = () => {
   };
 
   const handleSubmit = () => {
+    setLoading(true);
 		submit()
 			.then(() => {
         navigate('/');
 			})
 			.catch(e => {
 				if (e.code === 4001) {
-					window.alert('denied transaction');
+					window.alert('Denied transaction');
 				}
         setLoading(false);
-				console.log('error', e);
+				window.alert('An error has occurred. Please try again');
 			});
 	};
 			
-
   const submit = async() => {
-    setLoading(true);
     await contract.methods.submit(surveyId, answersIdArray).send({ from: account })
-      .on('confirmation', (confirmationNumber, receipt) => {
+      .on('confirmation', confirmationNumber => {
         return confirmationNumber;
       })
       .on('error', (error) => {
@@ -65,7 +64,10 @@ const SurveyContainer = () => {
       <>
         <ResponseList responses={responses} />
         <Box m={2} pt={3}>
-          {isLoading ? <div>Loading...</div> : 
+          {isLoading ? 
+            <Box sx={{ display: 'flex' }}>
+              <CircularProgress />
+            </Box> : 
             <Button variant="outlined" color="inherit" size="large"
               onClick={handleSubmit}
             >

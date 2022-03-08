@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { useInterval } from '../hooks/useInterval';
+import { NO_ANSWERED } from '../utils/constants';
 import Card from './QuestionCard';
 
 const Survey = ({ addResponse, surveyQuestion }) => {
   const [remainingTime, setRemainingTime] = useState(null);
-  const NO_ANSWERED = 'No answered';
 
   useEffect(() => {
     setRemainingTime(surveyQuestion.lifetimeSeconds);

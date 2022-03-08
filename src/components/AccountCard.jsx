@@ -2,7 +2,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
 import { useEffect, useState } from 'react';
 
-import { useContract } from '../hooks/contract';
+import { useContract } from '../context/contract';
 import { formatAccount, formatBalance } from '../utils';
 
 const AccountCard = () => {
