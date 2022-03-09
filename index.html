@@ -8,15 +8,7 @@
     <script>
       window.global = window;
     </script>
-    <script type="module">
-      import { Buffer } from 'buffer';
-      import EventEmitter from 'events';
-      import process from 'process';
-
-      window.Buffer = Buffer;
-      window.process = process;
-      window.EventEmitter = EventEmitter;
-    </script>
+    <script lang="javascript" src="./src/utils/browserified-libs.js"></script>
   </head>
   <body>
     <div id="root"></div>
