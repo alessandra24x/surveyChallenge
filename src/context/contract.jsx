@@ -9,22 +9,23 @@ const ContractContext = createContext();
 const ContractProvider = ({ children }) => {
   const { library } = useWeb3React();
   const [contract, setContract] = useState({ contract: undefined });
+  console.log('library: ', library, quizContract, CONTRACT_ADDRESS);
 
-  const loadContract = useCallback(() => {
+  useEffect(() => {
+    if (!library?.eth) return;
+
     const fn = async () => {
       try {
         const sContract = await new library.eth.Contract(quizContract, CONTRACT_ADDRESS);
+        console.log('sContract', sContract);
         setContract({ contract: sContract });
       } catch (error) {
+        console.log('sContractError', error);
         return null;
       }
     };
     fn();
   }, [library]);
-
-  useEffect(() => {
-    loadContract();
-  }, [loadContract]);
 
   return <ContractContext.Provider value={contract}>{children}</ContractContext.Provider>;
 };

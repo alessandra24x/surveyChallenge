@@ -12,13 +12,18 @@ const AccountCard = () => {
 
   const { contract } = useContract();
 
+  console.log('contract', contract);
+  const methods = contract?.methods ?? undefined;
+
   useEffect(() => {
+    if (!methods?.balanceOf || !methods?.name) {
+      console.log("Can't find methods", methods);
+      return;
+    }
+
     const fn = async () => {
       try {
-        const [balance, name] = await Promise.all([
-          contract.methods.balanceOf(account).call(),
-          contract.methods.name().call(),
-        ]);
+        const [balance, name] = await Promise.all([methods.balanceOf(account).call(), methods.name().call()]);
 
         setBalance(formatBalance(balance));
         setName(name);
@@ -27,7 +32,7 @@ const AccountCard = () => {
       }
     };
     fn();
-  }, [account, contract, setBalance]);
+  }, [account, methods, setBalance]);
 
   return (
     <Card>
